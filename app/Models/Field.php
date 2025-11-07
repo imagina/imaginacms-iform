@@ -98,7 +98,9 @@ class Field extends CoreModel
         $accept = join(",", array_map(
           function ($valor) {
             return "." . $valor;
-          }, $rules->mimes));
+          },
+          $rules->mimes
+        ));
       }
 
       return $accept;
@@ -128,5 +130,14 @@ class Field extends CoreModel
     return Attribute::get(function (?string $value) {
       return $value . ($this->required ? config('asgard.iform.config.requiredFieldLabel') : '');
     });
+  }
+
+  public function systemName(): Attribute
+  {
+    return Attribute::make(
+      get: fn() => $this->label
+        ? preg_replace('/_+/', '_', Str::snake(str_replace(' ', '_', $this->label)))
+        : null,
+    );
   }
 }

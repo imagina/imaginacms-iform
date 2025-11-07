@@ -68,17 +68,20 @@ class Lead extends CoreModel
    */
   public function getNotificableParams(): array
   {
-    //Process to get Email (Example: From entity, or settings, et)
-    $email = 'emailto@example.com';
+
+    $emails = [];
+
+    $form = $this->form;
+    $emails = $this->form->destination_email ?? [];
 
     return [
       'created' => [
-        "email" => $email,
-        "title" => itrans("iform::leads.email.created.title"),
+        "email" => $emails,
+        "title" => $form->title . " | " . itrans("iform::lead.email.created.title"),
         "content" => "iform::emails.lead",
         "extraParams" => [
           "lead" => $this,
-          "form" => $this->form
+          "form" => $form
         ],
       ],
     ];
@@ -91,5 +94,4 @@ class Lead extends CoreModel
     }
     return new \Imagina\Icore\Relations\EmptyRelation();
   }
-
 }
