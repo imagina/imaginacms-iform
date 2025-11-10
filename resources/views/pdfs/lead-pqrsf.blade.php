@@ -164,7 +164,8 @@
         <table class="grid header-grid no-break">
             <tr>
                 <td class="logo-cell" style="width: 23%">
-                    <img src="https://s3.wasabisys.com/assets.colbitumen.com/assets/media/logos-principales/colbitumen.png" alt="COLBITUMEN" />
+                    <img src="https://s3.wasabisys.com/assets.colbitumen.com/assets/media/logos-principales/colbitumen.png"
+                        alt="COLBITUMEN" />
                 </td>
                 <td class="t-center" style="width: 54%">
                     <div class="title-wrap">
@@ -173,13 +174,15 @@
                     </div>
                 </td>
                 <td class="logo-cell t-right" style="width: 23%">
-                    <img src="https://s3.wasabisys.com/assets.colbitumen.com/assets/media/logos-principales/asfalcargo.jpg" alt="ASFALCARGO" />
+                    <img src="https://s3.wasabisys.com/assets.colbitumen.com/assets/media/logos-principales/asfalcargo.jpg"
+                        alt="ASFALCARGO" />
                 </td>
             </tr>
             <tr>
                 <th class="t-left font-13">CÓDIGO: <span class="normal"> {{$codeForm}} </span></th>
                 <th class="t-center font-13">VERSIÓN: <span class="normal">02</span></th>
-                <th class="t-right font-13">FECHA: <span class="normal">{{$lead->created_at->format('d/m/Y')}}</span></th>
+                <th class="t-right font-13">FECHA: <span class="normal">{{$lead->created_at->format('Y/m/d')}}</span>
+                </th>
             </tr>
         </table>
 
