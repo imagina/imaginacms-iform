@@ -6,6 +6,10 @@ use Imagina\Icore\Models\CoreModel;
 use Modules\Iuser\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+use Modules\Isetting\Models\Setting;
+
+
 class Lead extends CoreModel
 {
 
@@ -70,19 +74,52 @@ class Lead extends CoreModel
   {
 
     $emails = [];
-
     $form = $this->form;
+    $lead = $this;
+    $numberLead = $lead->id;
+
+    //Get Emails
     $emails = $this->form->destination_email ?? [];
+
+    //Check form system_name || TODO pass to config
+    if ($form->system_name == config('iform.formSystemNameToProcessPDF')) {
+
+      //Get all to update later
+      $settingIncrementalCode = Setting::where('system_name', 'iform::incrementalCode')->first();
+      $codeIncrement = $settingIncrementalCode->plain_value;
+
+      //Update number lead to title
+      $numberLead = $numberLead . ' | #' . $codeIncrement;
+
+      //Incrementar y guardar el setting de nuevo.
+      $settingIncrementalCode->plain_value = $codeIncrement + 1;
+      $settingIncrementalCode->save();
+
+      //Get form code
+      $codeForm = setting("iform::formCode");
+
+      //Create PDF
+      $pdf = Pdf::loadView('iform::pdfs.lead-pqrsf', compact('lead', 'codeForm', 'codeIncrement'))
+        ->setOptions(['isRemoteEnabled' => true]);
+
+      //Data to Attachment
+      $dataAttachment = [
+        'fileName' => $form->system_name . '_' . $lead->id . '.pdf',
+        'fileData' => base64_encode($pdf->output()), //Important to encode and decode later in Inotification module
+        'fileMimeType' => 'application/pdf',
+      ];
+    }
 
     return [
       'created' => [
         "email" => $emails,
-        "title" => $form->title . " | " . itrans("iform::lead.email.created.title"),
+        "title" => $form->title . " | " . itrans("iform::lead.email.created.title") . " | #" . $numberLead,
         "content" => "iform::emails.lead",
         "extraParams" => [
-          "lead" => $this,
+          "lead" => $lead,
           "form" => $form
         ],
+        "attachment" => $dataAttachment ?? null,
       ],
     ];
   }
