@@ -10,7 +10,7 @@
         @foreach($fields as $field)
           @php
           $value = $lead->values[$field->system_name] ?? "";
-          $isBoolean = is_bool($value);
+          $isBoolean = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
           @endphp
             <tr>
                 <th style="background-color: #eee;">{{ $field->label }}</th>
