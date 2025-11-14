@@ -8,16 +8,21 @@
 <table style="width: 100%;border-collapse: collapse; text-align:left">
     <tbody>
         @foreach($fields as $field)
+          @php
+          $value = $lead->values[$field->system_name] ?? "";
+          $isBoolean = is_bool($value);
+          @endphp
             <tr>
                 <th style="background-color: #eee;">{{ $field->label }}</th>
-                @if($field->type == 12)
-                    <td>{{ url($lead->values[$field->system_name] ?? "") }}</td>
+              <td>
+                @if($isBoolean)
+                  {{ trans('iform::lead.form.boolValue.'. $value?'yes' : 'no') }}
                 @else
-                    <td>{{ $lead->values[$field->system_name] ?? "" }}</td>
+                  {{$field->type == 12 ? url($value): $value}}
                 @endif
+              </td>
             </tr>
         @endforeach
-
     </tbody>
 </table>
 <br>
