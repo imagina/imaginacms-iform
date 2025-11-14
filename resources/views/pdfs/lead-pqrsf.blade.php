@@ -24,7 +24,17 @@
         }
 
         .title-wrap .kicker {
-            font-weight: 700;
+          font-weight: 700;
+        }
+
+        .title-wrap table{
+          width: 100% !important;
+          border-collapse: collapse;
+        }
+        
+        .title-wrap .kicker td {
+         border: 0 !important;
+          text-align: right !important;
         }
 
         .title-wrap .doc-title {
@@ -169,7 +179,12 @@
                 </td>
                 <td class="t-center" style="width: 54%">
                     <div class="title-wrap">
-                        <div class="kicker">FORMATO <span class="consec">N° ({{$codeIncrement}})</span></div>
+                      <table>
+                        <tr class="kicker">
+                          <td align="end">FORMATO</td>
+                          <td align="end"><span class="consec">N° ({{$codeIncrement}})</span></td>
+                        </tr>
+                      </table>
                         <div class="doc-title">ATENCION DE QUEJA, RECLAMO, REPORTE, SUGERENCIA Y FELICITACIONES</div>
                     </div>
                 </td>
@@ -179,10 +194,9 @@
                 </td>
             </tr>
             <tr>
-                <th class="t-left font-13">CÓDIGO: <span class="normal"> {{$codeForm}} </span></th>
-                <th class="t-center font-13">VERSIÓN: <span class="normal">02</span></th>
-                <th class="t-right font-13">FECHA: <span class="normal">{{$lead->created_at->format('Y/m/d')}}</span>
-                </th>
+                <th class="font-13 w-33">CÓDIGO: <span class="normal"> {{$codeForm}} </span></th>
+                <th class="font-13 w-33">VERSIÓN: <span class="normal">02</span></th>
+                <th class="font-13 w-33">FECHA: <span class="normal">{{$lead->created_at->format('Y/m/d')}}</span></th>
             </tr>
         </table>
 
@@ -196,41 +210,45 @@
                 <th colspan="2">1. DATOS DEL RECLAMANTE</th>
             </tr>
             <tr>
-                <td>
-                    <div class="bold small">Nombre completo o razón social</div>
-                    <div class="font-14">{{ $lead->values["nombre_completo_o_razón_social"]}}</div>
-                </td>
-                <td>
-                    <div class="bold small">Cédula o NIT</div>
-                    <div class="font-14">{{ $lead->values["cédula_o_nit"]}}</div>
-                </td>
+            <td>
+              <div class="bold small">Fecha de Ocurrencia</div>
+              <div class="font-14">{{ $lead->values["fecha_de_ocurrencia"]}}</div>
+            </td>
+            <td>
+              <div class="bold small">Cédula o NIT</div>
+              <div class="font-14">{{ $lead->values["cédula_o_nit"]}}</div>
+            </td>
             </tr>
             <tr>
-                <td>
-                    <div class="bold small">Dirección o sucursal</div>
-                    <div class="font-14">{{ $lead->values["dirección_o_sucursal"]}}</div>
-                </td>
-                <td>
-                    <div class="bold small">Ciudad</div>
-                    <div class="font-14">{{ $lead->values["ciudad"]}}</div>
-                </td>
+              <td>
+                <div class="bold small">Nombre completo o razón social</div>
+                <div class="font-14">{{ $lead->values["nombre_completo_o_razón_social"]}}</div>
+              </td>
+              <td>
+                <div class="bold small">Dirección o sucursal</div>
+                <div class="font-14">{{ $lead->values["dirección_o_sucursal"]}}</div>
+              </td>
             </tr>
             <tr>
-                <td>
-                    <div class="bold small">Número de Teléfono</div>
-                    <div class="font-14">{{ $lead->values["número_de_teléfono"]}}</div>
-                </td>
+              <td>
+                <div class="bold small">Número de Teléfono</div>
+                <div class="font-14">{{ $lead->values["número_de_teléfono"]}}</div>
+              </td>
+              <td>
+                <div class="bold small">Ciudad</div>
+                <div class="font-14">{{ $lead->values["ciudad"]}}</div>
+              </td>
+            </tr>
+            <tr>
                 <td>
                     <div class="bold small">Correo Electrónico</div>
                     <div class="font-14">{{ $lead->values["correo_electrónico"]}}</div>
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class="bold small">Nombre de la persona que actúa en representación del reclamante (Si aplica)
-                    </div>
-                    <div class="font-14">{{ $lead->values["reclamante_(si_aplica)"]}}</div>
-                </td>
+              <td colspan="2">
+                <div class="bold small">Nombre de la persona que actúa en representación del reclamante (Si aplica)
+                </div>
+                <div class="font-14">{{ $lead->values["reclamante_(si_aplica)"]}}</div>
+              </td>
             </tr>
         </table>
 
@@ -241,7 +259,7 @@
                 <col style="width: 50%" />
             </colgroup>
             <tr class="title-info">
-                <th colspan="2">2. TIPO DE SUCESO (Solicitud/Reporte)</span></th>
+                <th colspan="2"><span>2. TIPO DE SUCESO (Solicitud/Reporte)</span></th>
             </tr>
             <tr>
                 <td style="vertical-align: top;">

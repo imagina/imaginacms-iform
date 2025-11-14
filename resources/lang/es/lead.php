@@ -8,6 +8,10 @@ return [
     'table' => [
     ],
     'form' => [
+      'boolValue'=>[
+        'yes'=>'Sí',
+        'no'=>'No',
+      ]
     ],
     'messages' => [
     ],
